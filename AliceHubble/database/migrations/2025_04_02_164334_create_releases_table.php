@@ -16,10 +16,11 @@ return new class extends Migration
             $table->timestamps();
             $table->string("title");
             $table->date("date");
-            $table->boolean("format");
-            $table->string("spotifyLink");
-            $table->string("shopLink");
+            $table->string("type");
+            $table->string("spotifyLink")->nullable();
+            $table->string("shopLink")->nullable();
             $table->string("image");
+            $table->text('description')->nullable();
         });
     }
 

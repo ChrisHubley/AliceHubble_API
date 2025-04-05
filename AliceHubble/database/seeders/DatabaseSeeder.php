@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             SectionSeeder::class,
             ContentSeeder::class,
             ReleaseSeeder::class,
-            QuoteSeeder::class,
+            ArticleSeeder::class,
             VideoSeeder::class
         ]);
      // User::factory(10)->create();

@@ -17,7 +17,7 @@ class ReleaseSeeder extends Seeder
             DB::table('releases')->insert([
                 'title' => fake()->words(3, true),
                 'date' => fake()->date(),
-                'format' => 0,
+                'type' => 'single',
                 'spotifyLink' => fake()->url(),
                 'shopLink' => fake()->url(),
                 'image' => fake()->imageUrl()
@@ -27,7 +27,7 @@ class ReleaseSeeder extends Seeder
             DB::table('releases')->insert([
                 'title' => fake()->words(3, true),
                 'date' => fake()->date(),
-                'format' => 1,
+                'type' => 'album',
                 'spotifyLink' => fake()->url(),
                 'shopLink' => fake()->url(),
                 'image' => fake()->imageUrl()

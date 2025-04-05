@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('quotes', function (Blueprint $table) {
+        Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string("text");
+            $table->string('title');
+            $table->string("quote");
             $table->string("publication");
             $table->string("link")->nullable();
             $table->integer("release_id")->nullable();
             $table->integer("section_id")->nullable();
+            $table->date('date');
         });
     }
 
