@@ -16,6 +16,7 @@
     @endif
 </head>
 <body>
+@include('navbar')
 <h2>Add a New Release</h2>
 <form class="bg-orange-50 p-2 m-2 grid grid-cols-1 gap-2" method="POST" action="/releases/add">
     @csrf
@@ -40,9 +41,9 @@
     <div>
         <label>
             Format (Album/Single/EP) - required
-            <input type="text" name="format" class="bg-white border"/>
+            <input type="text" name="type" class="bg-white border"/>
         </label>
-        @error('format')
+        @error('type')
         <p class="text-red-600">{{ $message }}</p>
         @enderror
     </div>
@@ -83,7 +84,7 @@
         @enderror
     </div>
     <div>
-        <input type="submit" value="Create Release" class="bg-amber-400 p-2"/>
+        <input type="submit" value="Add Release" class="bg-amber-400 p-2"/>
     </div>
 </form>
 </body>

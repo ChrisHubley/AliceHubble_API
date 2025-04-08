@@ -30,7 +30,7 @@ class ArticleSeeder extends Seeder
                     'publication' => fake()->words(3, true),
                     'quote' => fake()->sentence(),
                     'link' => fake()->url(),
-                    'release_id' => fake()->numberBetween(1, 20),
+                    'release_id' => fake()->numberBetween(1, 17),
                 ]);
             }
     }

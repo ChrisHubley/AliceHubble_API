@@ -21,17 +21,23 @@
 </head>
 <body>
 @include('navbar')
-<a href="/releases/add"><h2>Add a release</h2></a><br>
-<h2>Click a release to edit</h2>
-<div class="p5">
-    @foreach($releases as $release)
+<h1>{{$release->title}}</h1><br>
+<p>Release date: {{$release->date}}</p><br>
+<p>Format: {{$release->type}}</p><br>
+@if ($release->description)
+<p> Description: {{$release->description}}</p>
+    @else
+    <p>Description: None </p>
+@endif
 
-        <a href="/releases/{{$release->id}}">
-            <p>{{$release->date}} - {{$release->format}} - {{$release->title}}</p>
-            </a>
+<a href="/releases/edit/{{$release->id}}">Edit this release</a><br>
+<form method="post">
+    @method('delete')
+    @csrf
+    <input type="submit" value="Delete Release" class="bg-amber-400 p-2"/>
+    <label>
+        Really delete?
+        <input type="checkbox" name="confirm"/>
+    </label>
 
-    @endforeach
-</div>
-
-</body>
-</html>
+</form>

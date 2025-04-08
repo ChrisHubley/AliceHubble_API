@@ -21,14 +21,19 @@
 </head>
 <body>
 @include('navbar')
-<a href="/releases/add"><h2>Add a release</h2></a><br>
-<h2>Click a release to edit</h2>
+<a href="/videos/add"><h2>Add a video</h2></a><br>
+<h2>Click a video to edit</h2>
 <div class="p5">
-    @foreach($releases as $release)
+    @foreach($videos as $video)
 
-        <a href="/releases/{{$release->id}}">
-            <p>{{$release->date}} - {{$release->format}} - {{$release->title}}</p>
-            </a>
+        <a href="/videos/edit/{{$video->id}}">
+            <p>{{$video->date}} - {{$video->title}} - {{$video->image}} <br>
+                Link: {{$video->link}}<br>
+                @if ($video->release)
+                    Release: {{$video->release->title}}
+                @endif
+            </p>
+        </a><br>
 
     @endforeach
 </div>

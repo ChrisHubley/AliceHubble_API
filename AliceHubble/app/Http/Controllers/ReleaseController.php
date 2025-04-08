@@ -9,7 +9,7 @@ class ReleaseController extends Controller
 {
     public function all(){
                $release = Release::all();
-        $sortedReleases = $release->sortBy('date');
+        $sortedReleases = $release->sortByDesc('date');
         return view ('releases',[
             'releases' => $sortedReleases
         ]);
@@ -18,8 +18,7 @@ class ReleaseController extends Controller
         return view('addRelease');
     }
     public function create(Request $request){
-        // Get the data out of the form
-        $newRelease = new Release(); // We create a new blank post
+        $newRelease = new Release();
         $request->validate([
             'title' => 'required|string',
             'date' => 'required|date',
@@ -29,7 +28,6 @@ class ReleaseController extends Controller
             'image' => 'URL',
             'description' => 'string|nullable'
         ]);
-        // Transfer the data from the request (form) into the blank post
         $newRelease->title = $request->title;
         $newRelease->date = $request->date;
         $newRelease->type = $request->type;
@@ -38,10 +36,19 @@ class ReleaseController extends Controller
         $newRelease->image = $request->image;
         $newRelease->description = $request->description;
 
-        // Save the data to the posts table
-        $newRelease->save();
 
-        // Send some kind of response
+        $newRelease->save();
         return redirect('/');
+    }
+    public function find(Release $release)
+    {
+        return view('singleRelease', [
+            'release' => $release
+        ]);
+    }
+        public function delete(Release $release, Request $request){
+        $request->validate(['confirm' => 'accepted']);
+        $release->delete();
+        return redirect('/releases');
     }
 }

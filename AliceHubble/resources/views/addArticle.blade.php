@@ -6,10 +6,6 @@
 
     <title>Alice Hubble Editor</title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-
     <!-- Styles / Scripts -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -21,17 +17,81 @@
 </head>
 <body>
 @include('navbar')
-<a href="/releases/add"><h2>Add a release</h2></a><br>
-<h2>Click a release to edit</h2>
-<div class="p5">
-    @foreach($releases as $release)
+<h2>Add a New Article</h2>
+<form class="bg-orange-50 p-2 m-2 grid grid-cols-1 gap-2" method="POST" action="/articles/add">
+    @csrf
+    <div>
+        <label>
+            Title - required
+            <input type="text" name="title" class="bg-white border"/>
+        </label>
+        @error('title')
+        <p class="text-red-600">{{ $message }}</p>
+        @enderror
+    </div>
+    <div>
+        <label>
+            Date (yyyy-mm-dd) - required
+            <input type="text" name="date" class="bg-white border"/>
+        </label>
+        @error('date')
+        <p class="text-red-600">{{ $message }}</p>
+        @enderror
+    </div>
+    <div>
+        <label>
+            Publication - required
+            <input type="text" name="publication" class="bg-white border"/>
+        </label>
+        @error('publication')
+        <p class="text-red-600">{{ $message }}</p>
+        @enderror
+    </div>
+    <div>
+        <label>
+            Link
+            <input type="text" name="link" class="bg-white border"/>
+        </label>
+        @error('link')
+        <p class="text-red-600">{{ $message }}</p>
+        @enderror
+    </div>
+    <div>
+        <label>
+            Quote
+            <textarea name="quote" class="bg-white border"></textarea>
+        </label>
+        @error('quote')
+        <p class="text-red-600">{{ $message }}</p>
+        @enderror
+    </div>
+    <div>
+        <label for="release">
+            Release
+        </label>
+        <select name="release" id="release">
+            <option value=0>None</option>
 
-        <a href="/releases/{{$release->id}}">
-            <p>{{$release->date}} - {{$release->format}} - {{$release->title}}</p>
-            </a>
+            @foreach($releases as $release)
+                <option value={{$release->id}}>{{$release->title}}</option>
+            @endforeach
+        </select>
+    </div>
+    <div>
+        <label for="Section">
+            Section
+        </label>
+        <select name="section" id="section">
+            <option value=0>None</option>
 
-    @endforeach
-</div>
-
+            @foreach($sections as $section)
+                <option value={{$section->id}}>{{$section->name}}</option>
+            @endforeach
+        </select>
+    </div>
+    <div>
+        <input type="submit" value="Add Article" class="bg-amber-400 p-2"/>
+    </div>
+</form>
 </body>
 </html>

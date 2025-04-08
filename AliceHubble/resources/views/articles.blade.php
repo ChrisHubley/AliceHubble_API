@@ -21,14 +21,22 @@
 </head>
 <body>
 @include('navbar')
-<a href="/releases/add"><h2>Add a release</h2></a><br>
-<h2>Click a release to edit</h2>
+<a href="/articles/add"><h2>Add an article</h2></a><br>
+<h2>Click an article to edit</h2>
 <div class="p5">
-    @foreach($releases as $release)
+    @foreach($articles as $article)
 
-        <a href="/releases/{{$release->id}}">
-            <p>{{$release->date}} - {{$release->format}} - {{$release->title}}</p>
-            </a>
+        <a href="/articles/edit/{{$article->id}}">
+            <p>{{$article->date}} - {{$article->title}} - {{$article->publication}} <br> {{$article->quote}} <br>
+            Link: {{$article->link}}<br>
+                @if ($article->release)
+                    Release: {{$article->release->title}}
+                @endif
+                @if ($article->section)
+                    Section: {{$article->section->name}}
+                @endif
+            </p>
+        </a><br>
 
     @endforeach
 </div>

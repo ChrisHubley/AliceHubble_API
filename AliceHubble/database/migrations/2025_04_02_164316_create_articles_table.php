@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Release;
+use App\Models\Section;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,8 +20,8 @@ return new class extends Migration
             $table->string("quote");
             $table->string("publication");
             $table->string("link")->nullable();
-            $table->integer("release_id")->nullable();
-            $table->integer("section_id")->nullable();
+            $table->foreignIdFor(Release::class)->nullable();
+            $table->foreignIdFor(Section::class)->nullable();
             $table->date('date');
         });
     }

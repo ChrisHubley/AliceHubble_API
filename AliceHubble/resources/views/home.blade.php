@@ -20,17 +20,11 @@
     @endif
 </head>
 <body>
-
-<h2>Click a section heading to edit</h2>
+@include('navbar')
+<h2>Click a section heading to edit its content</h2>
     <ul class="p5">
     @foreach($sections as $section)
-        @if ($section->name === 'releases')
-    <li> <a href="/releases"><p> • {{$section->name}} </p></a></li>
-            @elseif($section->name === 'press')
-                <li> <a href="/press"><p> • {{$section->name}} </p></a></li>
-            @else
        <li> <a href="/edit/{{$section->id}}"><p> • {{$section->name}} </p></a></li>
-            @endif
     @endforeach
     </ul>
 

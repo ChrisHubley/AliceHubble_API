@@ -12,6 +12,10 @@ class Section extends Model
     {
         return $this->hasMany(Content::class);
     }
+    public function article(): HasMany
+    {
+        return $this->hasMany(Article::class);
+    }
     /** @use HasFactory<\Database\Factories\SectionFactory> */
     use HasFactory;
 }
