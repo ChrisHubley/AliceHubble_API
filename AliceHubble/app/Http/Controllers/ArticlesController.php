@@ -45,4 +45,18 @@ class ArticlesController extends Controller
         $newArticle->save();
         return redirect('/');
     }
+    public function find(Article $article)
+    {
+        $article = Article::with('release', 'section')->findOrFail($article->id);
+        return view('singleArticle', [
+            'article' => $article,
+            'release' => $article->release,
+            'section' => $article->section
+        ]);
+    }
+    public function delete(Article $article, Request $request){
+        $request->validate(['confirm' => 'accepted']);
+        $article->delete();
+        return redirect('/articles');
+    }
 }

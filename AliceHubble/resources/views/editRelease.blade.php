@@ -6,6 +6,10 @@
 
     <title>Alice Hubble Editor</title>
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+
     <!-- Styles / Scripts -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -17,59 +21,76 @@
 </head>
 <body>
 @include('navbar')
-<h2>Add a New Video</h2>
-<form class="bg-orange-50 p-2 m-2 grid grid-cols-1 gap-2" method="POST" action="/releases/add">
+
+<form class="bg-orange-50 p-2 m-2 grid grid-cols-1 gap-2" method="post" action="/releases/edit/{{$release->id}}">
+    @method('put')
     @csrf
     <div>
         <label>
             Title - required
-            <input type="text" name="title" class="bg-white border"/>
+            <input type="text" name="title" class="bg-white border" value=" {{$release->title}}"/>
         </label>
         @error('title')
         <p class="text-red-600">{{ $message }}</p>
         @enderror
     </div>
     <div>
+        <div>
+            <label>
+                Date (yyy-mm-dd) - required
+                <input type="text" name="date" class="bg-white border" value=" {{$release->date}}"/>
+            </label>
+            @error('date')
+            <p class="text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Format (Album/Single/EP) - required
+                <input type="text" name="type" class="bg-white border" value=" {{$release->type}}"/>
+            </label>
+            @error('type')
+            <p class="text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Spotify link
+                <input type="text" name="spotifyLink" class="bg-white border" value=" {{$release->spotifyLink}}"/>
+            </label>
+            @error('spotifyLink')
+            <p class="text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Shop Link
+                <input type="text" name="shopLink" class="bg-white border" value=" {{$release->shopLink}}"/>
+            </label>
+            @error('shopLink')
+            <p class="text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Image (URL) - required
+                <input type="text" name="image" class="bg-white border" value=" {{$release->image}}"/>
+            </label>
+            @error('image')
+            <p class="text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+    <div>
         <label>
-            Date (yyy-mm-dd) - required
-            <input type="text" name="date" class="bg-white border"/>
+            Description
+            <textarea name="description" class="bg-white border"><?=$release->description?></textarea>
         </label>
-        @error('date')
+        @error('description')
         <p class="text-red-600">{{ $message }}</p>
         @enderror
     </div>
     <div>
-        <label>
-            Link - required
-            <input type="text" name="link" class="bg-white border"/>
-        </label>
-        @error('link')
-        <p class="text-red-600">{{ $message }}</p>
-        @enderror
-    </div>
-    <div>
-        <label>
-            Image
-            <input type="text" name="spotifyLink" class="bg-white border"/>
-        </label>
-        @error('spotifyLink')
-        <p class="text-red-600">{{ $message }}</p>
-        @enderror
-    </div>
-    <div>
-        <label for="release">
-            Release
-        </label>
-        <select name="release" id="release">
-            <option value=0>None</option>
-            @foreach($releases as $release)
-                <option value={{$release->id}}>{{$release->title}}</option>
-            @endforeach
-        </select>
-    </div>
-    <div>
-        <input type="submit" value="Add Video" class="bg-amber-400 p-2"/>
+        <input type="submit" value="Edit Release" class="bg-amber-400 p-2"/>
     </div>
 </form>
 </body>
-</html>

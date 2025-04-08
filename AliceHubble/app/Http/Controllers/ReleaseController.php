@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Release;
 use Illuminate\Http\Request;
 
@@ -38,7 +39,7 @@ class ReleaseController extends Controller
 
 
         $newRelease->save();
-        return redirect('/');
+        return redirect('/releases');
     }
     public function find(Release $release)
     {
@@ -49,6 +50,32 @@ class ReleaseController extends Controller
         public function delete(Release $release, Request $request){
         $request->validate(['confirm' => 'accepted']);
         $release->delete();
+        return redirect('/releases');
+    }
+    public function editForm(Release $release){
+        return view('editRelease', [
+            'release' => $release
+        ]);
+    }
+    public function edit(Release $release, Request $request){
+        $request->validate([
+            'title' => 'required|string',
+            'date' => 'required|date',
+            'type' => 'required|string',
+            'spotifyLink' => 'nullable|URL',
+            'shopLink' => 'nullable|URL',
+            'image' => 'URL',
+            'description' => 'string|nullable'
+        ]);
+        $release->title = $request->title;
+        $release->date = $request->date;
+        $release->type = $request->type;
+        $release->spotifyLink = $request->spotifyLink;
+        $release->shopLink = $request->shopLink;
+        $release->image = $request->image;
+        $release->description = $request->description;
+
+        $release->save();
         return redirect('/releases');
     }
 }

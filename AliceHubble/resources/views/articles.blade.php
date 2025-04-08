@@ -26,7 +26,7 @@
 <div class="p5">
     @foreach($articles as $article)
 
-        <a href="/articles/edit/{{$article->id}}">
+        <a href="/articles/{{$article->id}}">
             <p>{{$article->date}} - {{$article->title}} - {{$article->publication}} <br> {{$article->quote}} <br>
             Link: {{$article->link}}<br>
                 @if ($article->release)

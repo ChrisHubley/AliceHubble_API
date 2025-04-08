@@ -6,6 +6,10 @@
 
     <title>Alice Hubble Editor</title>
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+
     <!-- Styles / Scripts -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -17,59 +21,31 @@
 </head>
 <body>
 @include('navbar')
-<h2>Add a New Video</h2>
-<form class="bg-orange-50 p-2 m-2 grid grid-cols-1 gap-2" method="POST" action="/releases/add">
+<h1>{{$article->title}}</h1><br>
+<p>Date: {{$article->date}}</p><br>
+<p>Publication: {{$article->publication}}</p><br>
+<p>Quote: {{$article->quote}}</p><br>
+
+
+@if ($article->release)
+    <p> Release: {{$release->title}}</p><br>
+@else
+    <p>Release: None </p><br>
+@endif
+@if ($article->section)
+    <p> Section: {{$section->name}}</p><br>
+@else
+    <p>Section: None </p><br>
+@endif
+
+<a href="/articles/edit/{{$article->id}}">Edit this article</a><br><br>
+<form method="post">
+    @method('delete')
     @csrf
-    <div>
-        <label>
-            Title - required
-            <input type="text" name="title" class="bg-white border"/>
-        </label>
-        @error('title')
-        <p class="text-red-600">{{ $message }}</p>
-        @enderror
-    </div>
-    <div>
-        <label>
-            Date (yyy-mm-dd) - required
-            <input type="text" name="date" class="bg-white border"/>
-        </label>
-        @error('date')
-        <p class="text-red-600">{{ $message }}</p>
-        @enderror
-    </div>
-    <div>
-        <label>
-            Link - required
-            <input type="text" name="link" class="bg-white border"/>
-        </label>
-        @error('link')
-        <p class="text-red-600">{{ $message }}</p>
-        @enderror
-    </div>
-    <div>
-        <label>
-            Image
-            <input type="text" name="spotifyLink" class="bg-white border"/>
-        </label>
-        @error('spotifyLink')
-        <p class="text-red-600">{{ $message }}</p>
-        @enderror
-    </div>
-    <div>
-        <label for="release">
-            Release
-        </label>
-        <select name="release" id="release">
-            <option value=0>None</option>
-            @foreach($releases as $release)
-                <option value={{$release->id}}>{{$release->title}}</option>
-            @endforeach
-        </select>
-    </div>
-    <div>
-        <input type="submit" value="Add Video" class="bg-amber-400 p-2"/>
-    </div>
+    <input type="submit" value="Delete Article" class="bg-amber-400 p-2"/>
+    <label>
+        Really delete?
+        <input type="checkbox" name="confirm"/>
+    </label>
+
 </form>
-</body>
-</html>

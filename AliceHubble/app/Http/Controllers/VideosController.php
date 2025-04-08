@@ -35,5 +35,17 @@ class VideosController extends Controller
         $newVideo->date = $request->date;
         $newVideo->release_id = $request->release;
     }
-
+    public function find(Video $video)
+    {
+        $videos = Video::with('release')->findOrFail($video->id);
+        return view('singleVideo', [
+            'video' => $video,
+            'release' => $video->release
+        ]);
+    }
+    public function delete(Release $release, Request $request){
+        $request->validate(['confirm' => 'accepted']);
+        $release->delete();
+        return redirect('/releases');
+    }
 }

@@ -26,7 +26,7 @@
 <div class="p5">
     @foreach($videos as $video)
 
-        <a href="/videos/edit/{{$video->id}}">
+        <a href="/videos/{{$video->id}}">
             <p>{{$video->date}} - {{$video->title}} - {{$video->image}} <br>
                 Link: {{$video->link}}<br>
                 @if ($video->release)
